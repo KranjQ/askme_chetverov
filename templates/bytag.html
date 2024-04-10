@@ -1,0 +1,16 @@
+{% extends "layouts/base.html" %} {% load static %}
+{% block content %}
+<div class="d-flex gap-3 align-items-center">
+  <h1>By {{tag.name}}</h1>
+  {% comment %} <a href="/index.html">New Questions</a> {% endcomment %}
+</div>
+
+<div class="col-8">
+  {% for question in questions %}
+  {% if  question.tag_id == tag.id %}
+    {% include "layouts/question.html" with item=question %} 
+  {% endif %}
+  {% endfor %}
+
+</div>
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends "layouts/base.html"%} {% load static %} {% block content %}
 
 <div class="d-flex gap-3 align-items-center">
-  <h1>Registration</h1>
+  <h1>Settings</h1>
 </div>
 
 <div class="col-8">
@@ -13,7 +13,7 @@
       <div class="col-9">
         <input
           type="text"
-          class="form-control is-invalid"
+          class="form-control isvalid"
           placeholder="Enter your login here"
         />
         <div class="invalid-feedback">Логин не соответствует требованиям!</div>
@@ -29,7 +29,7 @@
       <div class="col-9">
         <input
           type="email"
-          class="form-control is-invalid"
+          class="form-control isvalid"
           placeholder="Enter your email here"
         />
         <div class="invalid-feedback">
@@ -47,7 +47,7 @@
       <div class="col-9">
         <input
           type="email"
-          class="form-control is-invalid"
+          class="form-control isvalid"
           placeholder="Enter your NickName here"
         />
         <div class="invalid-feedback">
@@ -57,38 +57,7 @@
     </div>
   </div>
 
-  <div class="container-fluid">
-    <div class="row mt-5">
-      <div class="col-3">
-        <h5>Password</h5>
-      </div>
-      <div class="col-9">
-        <input
-          type="password"
-          class="form-control is-invalid"
-          placeholder="Enter your password"
-        />
-        <div class="invalid-feedback">Пароль не подходит под требования!</div>
-      </div>
-    </div>
-  </div>
 
-  <div class="container-fluid">
-    <div class="row mt-5">
-      <div class="col-3">
-        <h5>Repeat password</h5>
-      </div>
-      <div class="col-9">
-        <input
-          type="password"
-          class="form-control is-invalid"
-          placeholder="Repeat your password"
-          required
-        />
-        <div class="invalid-feedback">Пароли не совпадают!</div>
-      </div>
-    </div>
-  </div>
 
   <div class="container-fluid">
     <div class="row mt-5">
@@ -96,11 +65,11 @@
         <h5>Upload avatar</h5>
       </div>
       <div class="col-9">
-        <input type="file" class="form-control is-invalid" />
+        <input type="file" class="form-control isvalid" />
         <div class="invalid-feedback">
           Выбранный файл не подходит под требования!
         </div>
-        <button type="button" class="btn btn-success mt-4">Register!</button>
+        <button type="button" class="btn btn-success mt-4">Save</button>
       </div>
     </div>
   </div>

@@ -1,13 +1,14 @@
 {% extends "layouts/base.html" %} {% load static %} {% block content %}
 <div class="d-flex gap-3 align-items-center">
-  <h1>New Questions</h1>
-  <a href="{% url "hot"%}">Hot Questions</a>
+  <h1>Hot Questions</h1>
+  <a href="{% url "index" %}">New Questions</a>
 </div>
 
 <div class="col-8">
   {% for question in questions %}
   {% include "layouts/question.html" with item=question %} 
   {% endfor %}
-  {% include "layouts/pagination.html" with pag_obj=questions url='index'%}
+
+  {% include "layouts/pagination.html" with pag_obj=questions url='hot'%}
 </div>
 {% endblock %}
