@@ -8,23 +8,23 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-class Status(models.Model):
-    like_count = models.IntegerField()
+class Tag(models.Model):
+    name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
 class QuestionManager(models.Manager):
     def get_hot(self):
-        return self.filter(status__like_count__gt=20)
+        return self.filter(id__gt=10)
     def get_new(self):
-        return self.order_by('-created_at').values()
+        return self.order_by('-created_at')
 
 
 class Question(models.Model):
     title = models.CharField(max_length=255)
     text = models.CharField(max_length=1024)
-    status = models.ForeignKey(Status, on_delete=models.PROTECT)
-    # tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -34,15 +34,27 @@ class Question(models.Model):
 class Answer(models.Model):
     title = models.CharField(max_length=255)
     text = models.CharField(max_length=1024)
-    status = models.ForeignKey(Status, on_delete=models.CASCADE)
     truth_checkbox = models.BooleanField()
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=255)
-    question = models.ManyToManyField(Question)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
+class AnswerLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    answer = models.ForeignKey(Answer, on_delete=models.PROTECT)
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'answer'], name='unique_answerlike_user')
+        ]
+
+
+class QuestionLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    question = models.ForeignKey(Question, on_delete=models.PROTECT)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'question'], name='unique_questionlike_user')
+        ]

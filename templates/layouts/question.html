@@ -11,32 +11,34 @@
         />
       </div>
       <div class="input-group flex-nowrap">
-        <input type="number" value="{{ item.status.like_count }}" class="form-control" />
+        <input type="number" value="5" class="form-control" />
       </div>
     </div>
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title">
-          <a href="{% url "question" item.id %}">{{item.title}}</a>
+          <a href="{% url "question" item.id %}">{{ item.title }}</a>
         </h5>
         <p class="card-text">{{ item.text }}</p>
         <div class="row">
-          {% comment %} <a class="col-4" href="{% url "question" item.id %}">answer (3)</a> {% endcomment %}
-          <a class="col-4" href="">answer (3)</a>
+          <a class="col-4" href="{% url "question" item.id %}">answer (10)</a>
+          {% comment %} <a class="col-4" href="">answer (3)</a> {% endcomment %}
           <div class="col-8">
             <span>Tags</span>
-            {% comment %} <a href="{% url "tag" item.tag_id %}">tag</a>
-            <a href="{% url "tag" item.tag_id %}">tag</a>
-            <a href="{% url "tag" item.tag_id %}">tag</a>
-            <a href="{% url "tag" item.tag_id %}">tag</a>
-            <a href="{% url "tag" item.tag_id %}">tag</a>
-            <a href="{% url "tag" item.tag_id %}">tag</a> {% endcomment %}
+            {% for tag in item.tags.all %}
+            <a href="{% url "tag" tag.id %}">{{ tag.name }}</a>
+            {% endfor %}
+            {% comment %} <a href="{% url "tag" item.tags[1] %}">tag</a>
+            <a href="{% url "tag" item.tags[2] %}">tag</a>
+            <a href="{% url "tag" item.tags[3] %}">tag</a>
+            <a href="{% url "tag" item.tags[4] %}">tag</a>
+            <a href="{% url "tag" item.tags[5] %}">tag</a> {% endcomment %}
+            {% comment %} <a href="">tag</a>
             <a href="">tag</a>
             <a href="">tag</a>
             <a href="">tag</a>
             <a href="">tag</a>
-            <a href="">tag</a>
-            <a href="">tag</a>
+            <a href="">tag</a> {% endcomment %}
           </div>
         </div>
       </div>

@@ -7,9 +7,7 @@
 
 <div class="col-8">
   {% for question in questions %}
-  {% if  question.tag_id == tag.id %}
     {% include "layouts/question.html" with item=question %} 
-  {% endif %}
   {% endfor %}
 
 </div>

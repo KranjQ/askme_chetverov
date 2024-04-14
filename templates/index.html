@@ -6,7 +6,7 @@
 
 <div class="col-8">
   {% for question in questions %}
-  {% include "layouts/question.html" with item=question %} 
+    {% include "layouts/question.html" with item=question %} 
   {% endfor %}
   {% include "layouts/pagination.html" with pag_obj=questions url='index'%}
 </div>

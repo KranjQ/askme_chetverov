@@ -3,7 +3,7 @@
 {% block content %}
 <div class="d-flex gap-3 align-items-center">
   <h1>Question Page</h1>
-  <a href="index.html">Hot Questions</a>
+  <a href="{% url "hot" %}">Hot Questions</a>
 </div>
 
 <div class="col-8">
@@ -11,9 +11,7 @@
   {% include "layouts/question.html" with item=question %} 
   </div>
   {% for answer in answers %}
-    {% if answer.issue_id == question.id %}
       {% include "layouts/answer_card.html" with a_item=answer %}
-    {% endif %}
   {% endfor %}
   
   
