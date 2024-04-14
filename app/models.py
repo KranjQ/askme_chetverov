@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Count
 
 
 class Profile(models.Model):
@@ -16,7 +17,8 @@ class Tag(models.Model):
 
 class QuestionManager(models.Manager):
     def get_hot(self):
-        return self.filter(id__gt=10)
+        # return self.filter(questionlike__gt=17)
+        return self.annotate(num_likes=Count("questionlike__question")).filter(num_likes__gt=15)
     def get_new(self):
         return self.order_by('-created_at')
 
