@@ -1,78 +1,18 @@
 {% extends "layouts/base.html"%} {% load static %} {% block content %}
+{% load django_bootstrap5 %}
 
 <div class="d-flex gap-3 align-items-center">
   <h1>Settings</h1>
 </div>
 
 <div class="col-8">
-  <div class="container-fluid">
-    <div class="row mt-5">
-      <div class="col-3">
-        <h5>Login</h5>
-      </div>
-      <div class="col-9">
-        <input
-          type="text"
-          class="form-control isvalid"
-          placeholder="Enter your login here"
-        />
-        <div class="invalid-feedback">Логин не соответствует требованиям!</div>
-      </div>
-    </div>
+  <form method="post", action="" enctype="multipart/form-data"> {% csrf_token %}
+ {% bootstrap_form form %}
+  <div>
+  <button type="submit" class="btn btn-success mt-4">Save</button>
   </div>
-
-  <div class="container-fluid">
-    <div class="row mt-5">
-      <div class="col-3">
-        <h5>Email</h5>
-      </div>
-      <div class="col-9">
-        <input
-          type="email"
-          class="form-control isvalid"
-          placeholder="Enter your email here"
-        />
-        <div class="invalid-feedback">
-          Название почты не соответствует требованиям!
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid">
-    <div class="row mt-5">
-      <div class="col-3">
-        <h5>NickName</h5>
-      </div>
-      <div class="col-9">
-        <input
-          type="email"
-          class="form-control isvalid"
-          placeholder="Enter your NickName here"
-        />
-        <div class="invalid-feedback">
-          Никнейм не соответствует требованиям!
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-  <div class="container-fluid">
-    <div class="row mt-5">
-      <div class="col-3">
-        <h5>Upload avatar</h5>
-      </div>
-      <div class="col-9">
-        <input type="file" class="form-control isvalid" />
-        <div class="invalid-feedback">
-          Выбранный файл не подходит под требования!
-        </div>
-        <button type="button" class="btn btn-success mt-4">Save</button>
-      </div>
-    </div>
-  </div>
+</form>
 </div>
+
 
 {% endblock %}

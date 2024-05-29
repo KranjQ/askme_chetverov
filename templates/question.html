@@ -1,6 +1,7 @@
 {% extends "layouts/base.html"%}
 {% load static %}
 {% block content %}
+{% load django_bootstrap5 %}
 <div class="d-flex gap-3 align-items-center">
   <h1>Question Page</h1>
   <a href="{% url "hot" %}">Hot Questions</a>
@@ -8,23 +9,18 @@
 
 <div class="col-8">
   <div class="border-bottom">
-  {% include "layouts/question.html" with item=question %} 
+  {% include "layouts/question.html" with item=question like_disabled=True%} 
   </div>
   {% for answer in answers %}
-      {% include "layouts/answer_card.html" with a_item=answer %}
+      {% include "layouts/answer_card.html" with a_item=answer q_item=question%}
   {% endfor %}
   
   
-  <div class="input-group flex-nowrap mt-3">
-    <textarea
-      class="form-control"
-      placeholder="Enter your answer here"
-      rows="3"
-    ></textarea>
-  </div>
-
-  <button type="button" class="btn btn-success mt-3">Answer</button>
-
+  <form method="post"> {% csrf_token %}
+    {% bootstrap_form form %}
+  <button type="submit" class="btn btn-success mt-3">Answer</button>
+  </form>
+  {% include "layouts/pagination.html" with pag_obj=answers%}
 </div>
-
+<script src="{% static "js/answer.js" %}"></script>
 {% endblock %}

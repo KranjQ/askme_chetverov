@@ -3,17 +3,21 @@ from django.contrib.auth.models import User
 from django.db.models import Count
 
 
-class Profile(models.Model):
-    avatar = models.ImageField(null=True, blank=True)
-    user = models.OneToOneField(User, on_delete=models.PROTECT)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class Profile(User):
+    user_ptr = models.OneToOneField(User, on_delete=models.CASCADE, parent_link=True, unique=True)
+    avatar = models.ImageField(null=True, blank=True, upload_to="images", default="images/avatar_one.jpg")
+    # user = models.OneToOneField(User, on_delete=models.PROTECT)
+    # created_at = models.DateTimeField(auto_now_add=True)
+    # updated_at = models.DateTimeField(auto_now=True)
 
 class Tag(models.Model):
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
+    def __str__(self):
+        return "%s"%(self.name)
 
 class QuestionManager(models.Manager):
     def get_hot(self):
@@ -27,17 +31,22 @@ class Question(models.Model):
     title = models.CharField(max_length=255)
     text = models.CharField(max_length=1024)
     tags = models.ManyToManyField(Tag)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
 
     objects = QuestionManager()
     
+
+    def __str__(self):
+        return "%s"%(self.title)
 class Answer(models.Model):
     title = models.CharField(max_length=255)
     text = models.CharField(max_length=1024)
     truth_checkbox = models.BooleanField()
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

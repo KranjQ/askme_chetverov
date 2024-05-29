@@ -1,18 +1,22 @@
 {% load static %}
 
-<article class="card mb-3 w-100">
+<article class="card mb-3 w-100" data-question-id="{{ item.id }}">
   <div class="row g-0">
     <div class="col-3 p-2">
-      <div class="border w-100 mb-3" style="height: 100px">
+      <div class="border w-100 mb-3" style="height: 100px width: 100px">
+        {% if item.author.avatar %}
         <img
-          src=" {% static 'img/avatar_one.jpg' %}"
+          src="{{ item.author.avatar.url }}"
           class="img-fluid rounded-start"
           alt="..."
         />
+        {% endif %}
       </div>
+      {% if like_disabled != True%}
       <div class="input-group flex-nowrap">
-        <input type="number" value="{{ item.questionlike_set.count }}" class="form-control" />
+        <input type="number" value="{{ item.questionlike_set.count }}" class="form-control like-counter" />
       </div>
+      {% endif %}
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -21,24 +25,14 @@
         </h5>
         <p class="card-text">{{ item.text }}</p>
         <div class="row">
-          <a class="col-4" href="{% url "question" item.id %}">answer (10)</a>
-          {% comment %} <a class="col-4" href="">answer (3)</a> {% endcomment %}
+          <a class="col-4" href="{% url "question" item.id %}"> answers ({{item.answer_set.count}})</a>
+          
           <div class="col-8">
             <span>Tags</span>
             {% for tag in item.tags.all %}
             <a href="{% url "tag" tag.id %}">{{ tag.name }}</a>
             {% endfor %}
-            {% comment %} <a href="{% url "tag" item.tags[1] %}">tag</a>
-            <a href="{% url "tag" item.tags[2] %}">tag</a>
-            <a href="{% url "tag" item.tags[3] %}">tag</a>
-            <a href="{% url "tag" item.tags[4] %}">tag</a>
-            <a href="{% url "tag" item.tags[5] %}">tag</a> {% endcomment %}
-            {% comment %} <a href="">tag</a>
-            <a href="">tag</a>
-            <a href="">tag</a>
-            <a href="">tag</a>
-            <a href="">tag</a>
-            <a href="">tag</a> {% endcomment %}
+            
           </div>
         </div>
       </div>

@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'app',
+    'django_bootstrap5',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -129,6 +130,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/kirill/techno/web/askme_chetverov/'
+
+MEDIA_ROOT = BASE_DIR / 'uploads'
+MEDIA_URL = '/uploads/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -139,3 +144,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+# )

@@ -1,18 +1,18 @@
 {% load static %}
 
 
-<article class="card mt-3 p-3 w-100 border-4 border-dark">
+<article class="card mt-3 p-3 w-100 border-4 border-dark answer_card" data-answer-id="{{a_item.id}}">
   <div class="row g-0">
     <div class="col-3 p-1 mx-auto d-block">
       <div class="border mb-3" style="width: 100px; height: 100px">
         <img
-          src=" {% static 'img/avatar_one.jpg' %}"
+          src="{{a_item.author.avatar.url}}"
           class="img-fluid rounded-start"
           alt="..."
         />
       </div>
       <div class="input-group flex-nowrap" style="width: 100px">
-        <input type="number" value="5" class="form-control" />
+        <input type="number" value="{{ a_item.answerlike_set.count}}" class="form-control like-counter" />
       </div>
     </div>
     <div class="col-md-8">
@@ -21,21 +21,36 @@
         <p class="card-text">
           {{a_item.text}}
         </p>
+        {% if request.user == q_item.author.user_ptr %}
         <div class="row">
           <div class="col-8">
             <div class="input-group mb-3">
+              {% if a_item.truth_checkbox %}
               <div class="input-group-text">
                 <input
-                  class="form-check-input mt-0"
+                  class="form-check-input mt-0 truth-checkbox"
+                  type="checkbox"
+                  value=""
+                  aria-label="Checkbox for following text input"
+                  checked
+                />
+              </div>
+              {% endif %}
+              {% if a_item.truth_checkbox != True %}
+              <div class="input-group-text">
+                <input
+                  class="form-check-input mt-0 truth-checkbox"
                   type="checkbox"
                   value=""
                   aria-label="Checkbox for following text input"
                 />
               </div>
+              {% endif %}
               <label class="checkbox-inline ms-2">Correct!</label>
             </div>
           </div>
         </div>
+        {% endif %}
       </div>
     </div>
   </div>
