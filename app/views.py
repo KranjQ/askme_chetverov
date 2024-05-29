@@ -63,7 +63,7 @@ def question(request, question_id):
         if answer.is_valid():
             answer.save(request=request, question_id=question_id)
     item = models.Question.objects.get(pk=question_id)
-    answers = models.Answer.objects.filter(question=question_id)
+    answers = models.Answer.objects.get_order_by_answers()
     page_obj = paginate(request, answers)
     
 
@@ -147,6 +147,13 @@ def not_auth(request):
 @require_http_methods(["POST", "GET"])
 @csrf_protect
 def like_async(request, question_id):
+    question = get_object_or_404(models.Question, pk=question_id)
+    profile, profile_created = models.Profile.objects.get_or_create(user_ptr = request.user)
+    question_like, question_like_created = models.QuestionLike.objects.get_or_create(question = question, user = profile)
+    if not question_like_created:
+        question_like.delete()
+    return JsonResponse({ 'likes_count' : models.QuestionLike.objects.filter(question=question).count()})
+def like_async_hot(request, question_id):
     question = get_object_or_404(models.Question, pk=question_id)
     profile, profile_created = models.Profile.objects.get_or_create(user_ptr = request.user)
     question_like, question_like_created = models.QuestionLike.objects.get_or_create(question = question, user = profile)

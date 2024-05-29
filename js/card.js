@@ -25,7 +25,7 @@ const init = () => {
 
         like_counter.addEventListener('click', () => {
 
-            const request = new Request(`${questionId}/like_async`, {
+            const request = new Request(`/${questionId}/like_async`, {
                 method : 'post',
                 headers: {
                     'Content-Type': 'application/json',

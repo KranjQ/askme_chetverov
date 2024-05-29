@@ -22,7 +22,7 @@ class Tag(models.Model):
 class QuestionManager(models.Manager):
     def get_hot(self):
         # return self.filter(questionlike__gt=17)
-        return self.annotate(num_likes=Count("questionlike__question")).filter(num_likes__gt=15)
+        return self.annotate(num_likes=Count("questionlike__question")).order_by('-num_likes', 'created_at')
     def get_new(self):
         return self.order_by('-created_at')
 
@@ -41,6 +41,11 @@ class Question(models.Model):
 
     def __str__(self):
         return "%s"%(self.title)
+    
+
+class AnswerManager(models.Manager):
+    def get_order_by_answers(self):
+        return self.annotate(num_likes=Count("answerlike")).order_by('-truth_checkbox', '-num_likes')
 class Answer(models.Model):
     title = models.CharField(max_length=255)
     text = models.CharField(max_length=1024)
@@ -49,6 +54,8 @@ class Answer(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = AnswerManager()
 
 
 

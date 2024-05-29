@@ -9,6 +9,7 @@
   {% include "layouts/question.html" with item=question %} 
   {% endfor %}
 
-  {% include "layouts/pagination.html" with pag_obj=questions url='hot'%}
+  {% include "layouts/pagination.html" with pag_obj=questions%}
 </div>
+<script src="{% static "js/card.js" %}"></script>
 {% endblock %}

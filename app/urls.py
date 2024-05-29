@@ -14,9 +14,10 @@ urlpatterns = [
     path('profile/edit', views.settings, name='settings'),
     path('not_auth/', views.not_auth, name='not_auth'),
     path('<int:question_id>/like_async', views.like_async, name='like_async'),
+    path('hot/<int:question_id>/like_async', views.like_async_hot, name='like_async'),
     path('questions/<int:answer_id>/like_async_answer', views.like_async_answer, name='like_async_answer'),
     path('questions/<int:answer_id>/checkbox_async_answer', views.checkbox_async_answer, name='check_async_answer'),
-    path('logout', views.logout_user, name='logout')
+    path('logout', views.logout_user, name='logout'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
